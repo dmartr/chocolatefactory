@@ -1,0 +1,37 @@
+{
+  "contextResponses" : [
+    {
+      "contextElement" : {
+        "type" : "Room",
+        "isPattern" : "false",
+        "id" : "Chocolate Room",
+        "attributes" : [
+          {
+            "name" : "temperature",
+            "type" : "float",
+            "value" : "23"
+          },
+          {
+            "name" : "pressure",
+            "type" : "integer",
+            "value" : "720"
+          },
+          {
+            "name" : "river_level",
+            "type" : "string",
+            "value" : "medium"
+          },
+          {
+            "name" : "waterfall_speed",
+            "type" : "float",
+            "value" : "10"
+          }
+        ]
+      },
+      "statusCode" : {
+        "code" : "200",
+        "reasonPhrase" : "OK"
+      }
+    }
+  ]
+}
