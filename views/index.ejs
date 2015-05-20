@@ -2,20 +2,51 @@
 <html lang="en">  
   <head>
     <meta charset="utf-8">
-    <title>Entities</title>
+    <title>Welcome to the chocolate factory</title>
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- styles -->
+    <script src="http://localhost:1028/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+     <script>
+    $(document).ready(function() {
+        var socket = io();
+        socket.on('update', function (data) { 
+        console.log(data);
+        var x = Math.round(data.attributes[0].value * 100) / 100; 
+        var y = Math.round(data.attributes[1].value * 100) / 100; 
+        var z = Math.round(data.attributes[3].value * 100) / 100; 
+        $("#name").html(data.id)
+        $('#natt1').html(data.attributes[0].name);
+        $('#natt2').html(data.attributes[1].name);
+        $('#natt3').html(data.attributes[2].name);
+        $('#natt4').html(data.attributes[3].name);
+        $('#att1').html(x);
+        $('#att2').html(y);
+        $('#att3').html(data.attributes[2].value);
+        $('#att4').html(z);
+        });
+        $("#subChocolate").click(function(){
+          socket.emit("subchocolate", "Subscribing!");
+        });
+        $("#subInventing").click(function(){
+          socket.emit("subinventing", "Subscribing!");
+          console.log("Clicked!")
+        });
+     });
+       </script>
     <link href="stylesheets/style.css" rel="stylesheet">
-
   </head>
   <body>
-    <%- body %>
+    <h1>Chocolate Factory control panel</h1>
+    <h2 id="name">Chocolate Room</h2>
+    <h3 id="natt1">Temperature:</h3><span id="att1">0</span>  
+    <h3 id="natt2">Pression:</h3><span id="att2">0</span> 
+    <h3 id="natt3">River level:</h3><span id="att3">?</span>
+    <h3 id="natt4">Waterfall speed:</h3><span id="att4">0</span> 
+    <div>
+       <button id="subChocolate" type="submit">Chocolate Room</button>
+       <button id="subInventing" type="submit">Inventing Room</button>
+       <button class="" type="submit">Ice-Cream Room</button>
+    </div>
   </body>
 </html>  

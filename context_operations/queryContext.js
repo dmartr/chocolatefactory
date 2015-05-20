@@ -3,14 +3,36 @@ var http = require('http');
 exports.getContext = function(callback){
 
 var payload = {
-  "entities": [
-    {
-        "type": "Room",
-        "isPattern": "false",
-        "id": "Chocolate Room"
-    }
-    ]
+    "entities": [
+        {
+            "type": "Room",
+            "isPattern": "false",
+            "id": "Chocolate Room"
+        }
+    ],
+    "attributes": [
+        "temperature",
+        "pressure",
+        "river_level",
+        "waterfall_speed"
+    ],
+    "reference": "http://138.4.7.25:1028/contextResponse",
+    "duration": "P1M",
+    "notifyConditions": [
+        {
+            "type": "ONCHANGE",
+            "condValues": [
+                "temperature",
+                "pressure",
+                "river_level",
+                "waterfall_speed"
+
+            ]
+        }
+    ],
+    "throttling": "PT5S"
 };
+
 var payloadString = JSON.stringify(payload);
   var headers = {
   'Content-Type': 'application/json', 
@@ -21,7 +43,7 @@ var payloadString = JSON.stringify(payload);
 var options = {
   host: 'localhost',
     port: '8080',
-    path: '/v1/queryContext',
+    path: '/v1/subscribeContext',
     method: 'POST',
     headers: headers
 };
@@ -46,6 +68,5 @@ req.on('error', function(e) {
 
 req.write(payloadString);
 req.end();
-
 
 };
