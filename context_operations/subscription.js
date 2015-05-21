@@ -12,10 +12,11 @@ var payload = {
         }
     ],
     "attributes": [
-        "temperature",
-        "pressure",
-        "river_level",
-        "waterfall_speed"
+        "Temperature",
+        "Pressure",
+        "River level",
+        "Waterfall speed",
+        "Occupation"
     ],
     "reference": "http://138.4.7.25:1028/contextResponse",
     "duration": "P1M",
@@ -23,10 +24,11 @@ var payload = {
         {
             "type": "ONCHANGE",
             "condValues": [
-                "temperature",
-                "pressure",
-                "river_level",
-                "waterfall_speed"
+                "Temperature",
+                "Pressure",
+                "River level",
+                "Waterfall speed",
+                "Occupation"
 
             ]
         }

@@ -1,5 +1,47 @@
 var http = require('http');
 
+var clientMatrix = {}
+clientMatrix.a = {
+  a:0.2,
+  x:0.3,
+  b:1,
+};
+clientMatrix.b = {
+  a:0.3,
+  b:0.5,
+  c:0.7,
+  d:0.8,
+  e:1
+};
+clientMatrix.c = {
+  a:0,
+  b:0.1,
+  c:0.8,
+  d:0.9,
+  e:1
+};
+clientMatrix.d = {
+  a:0,
+  b:0.5,
+  c:0.6,
+  d:0.7,
+  e:0.8,
+  f:1
+};
+
+clientMatrix.e = {
+  a:0,
+  c:0.6,
+  d:0.7,
+  e:0.8,
+  f:1
+};
+
+clientMatrix.f = {
+  e:0.3,
+  f:1,
+};
+
 exports.updateChocolateRoom = function(callback){
 	setInterval(function(){
 	function randomNumber(low, high){
@@ -21,10 +63,18 @@ exports.updateChocolateRoom = function(callback){
 		}
 	}
 
+  function movePeople(x){
+    var dice = randomInt(0,1);
+    if(dice == 0) x+=1;
+    else x-=1;
+  }
+
 	var temperature = randomNumber(20, 30);
 	var pressure = randomNumber(725, 7);
 	var rlevel = changelevel();
 	var wspeed = randomNumber(10, 50);
+  var occupation = 100 - randomInt(0,6);
+  console.log(occupation);
 
 	var payload = {
 	"contextElements": [
@@ -34,24 +84,29 @@ exports.updateChocolateRoom = function(callback){
             "id": "Chocolate Room",
             "attributes": [
               {
-                "name": "temperature",
+                "name": "Temperature",
                 "type": "float",
                 "value": temperature
             },
             {
-                "name": "pressure",
+                "name": "Pressure",
                 "type": "integer",
                 "value": pressure
             },
            {
-               "name": "river_level",
+               "name": "River level",
                "type": "string",
                "value": rlevel
             },
             {
-               "name": "waterfall_speed",
+               "name": "Waterfall speed",
                "type": "float",
                "value": wspeed
+            },
+            {
+              "name": "Occupation",
+              "type": "integer",
+              "value": occupation
             }
            ]
        }

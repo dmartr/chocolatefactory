@@ -64,6 +64,12 @@ app.get('/', function (req, res) {
     res.render('index');
    
 });
+
+app.get('/rooms', function(req, res){
+    if(subID!=undefined) subscriptions.unsubscribeContext(subID);
+    subscriptions.subscribeChocolateContext();
+    res.render('roomMap');
+})
 /*
 app.post('/unsubscribe', function(req, res){
     console.log(subID);
@@ -124,12 +130,12 @@ var io = require('socket.io').listen(server);
 io.on("connection", function(socket){
     sockets.push(socket);
     socket.on('subchocolate', function(data){
-    if(subID!=undefined) subscriptions.unsubscribeContext(subID);
-        subscriptions.subscribeChocolateContext();
+        if(subID!=undefined) subscriptions.unsubscribeContext(subID);
+            subscriptions.subscribeChocolateContext();
     }); 
     socket.on('subinventing', function(data){
-    if(subID!=undefined) subscriptions.unsubscribeContext(subID);
-        subscriptions.subscribeInventingContext();   
+        if(subID!=undefined) subscriptions.unsubscribeContext(subID);
+            subscriptions.subscribeInventingContext();   
     });
 });
 

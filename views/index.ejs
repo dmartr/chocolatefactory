@@ -3,8 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Welcome to the chocolate factory</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
     <script src="http://localhost:1028/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
      <script>
@@ -15,7 +13,7 @@
         var x = Math.round(data.attributes[0].value * 100) / 100; 
         var y = Math.round(data.attributes[1].value * 100) / 100; 
         var z = Math.round(data.attributes[3].value * 100) / 100; 
-        $("#name").html(data.id)
+        $("#name").html(data.id);
         $('#natt1').html(data.attributes[0].name);
         $('#natt2').html(data.attributes[1].name);
         $('#natt3').html(data.attributes[2].name);
@@ -35,18 +33,23 @@
      });
        </script>
     <link href="stylesheets/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
   </head>
   <body>
-    <h1>Chocolate Factory control panel</h1>
+  <div class="container text-center align-center col-md-10">
+    <h1 class="page-header">Chocolate Factory control panel</h1>
+    <div class="">
     <h2 id="name">Chocolate Room</h2>
     <h3 id="natt1">Temperature:</h3><span id="att1">0</span>  
     <h3 id="natt2">Pression:</h3><span id="att2">0</span> 
     <h3 id="natt3">River level:</h3><span id="att3">?</span>
     <h3 id="natt4">Waterfall speed:</h3><span id="att4">0</span> 
-    <div>
-       <button id="subChocolate" type="submit">Chocolate Room</button>
-       <button id="subInventing" type="submit">Inventing Room</button>
-       <button class="" type="submit">Ice-Cream Room</button>
+    <div class="align-center">
+       <button id="subChocolate" class="btn" type="submit">Chocolate Room</button>
+       <button id="subInventing" class="btn" type="submit">Inventing Room</button>
+       <button id="subIcecream"  class="btn" type="submit">Ice-Cream Room</button>
     </div>
+    </div>
+  </div>
   </body>
 </html>  

@@ -1,0 +1,43 @@
+{
+ "name": "flare",
+ "children": [
+  {
+   "name": "d",
+   "children": [
+    {"name": "Elevator", "size": 5116}
+   ]
+  },
+  {
+   "name": "b",
+   "children": [
+    {"name": "Entrance", "size": 24593}
+   ]
+  },
+
+  {
+   "name": "c",
+   "children": [
+    {"name": "Invention Room", "size": 16540}
+   ]
+  },
+
+  {
+   "name": "e",
+   "children": [
+    {"name": "Ice-Cream Room", "size": 10564}
+   ]
+  },
+  {
+   "name": "a",
+   "children": [
+    {"name": "Chocolate Room", "size": 25540}
+   ]
+  },
+  {
+   "name": "f",
+   "children": [
+    {"name": "Willy Wonka's office", "size": 5540}
+   ]
+  }
+ ]
+}

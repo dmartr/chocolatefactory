@@ -1,34 +1,31 @@
 (curl localhost:8080/v1/updateContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' -d @- | python -mjson.tool) <<EOF
 {
-    "contextElements": [
+    "entities": [
         {
             "type": "Room",
             "isPattern": "false",
-            "id": "Chocolate Room",
-            "attributes": [
-              {
-                "name": "temperature",
-                "type": "float",
-                "value": "25"
-            },
-            {
-                "name": "pressure",
-                "type": "integer",
-                "value": "775"
-            },
-           {
-               "name": "river_level",
-               "type": "string",
-               "value": "low"
-            },
-            {
-               "name": "waterfall_speed",
-               "type": "float",
-               "value": "25"
-            }
-           ]
-       }
-   ],
-    "updateAction": "UPDATE"
-}
+            "id": "Chocolate Room"
+        }
+    ],
+    "attributes": [
+        "temperature",
+        "pressure",
+        "river_level",
+        "waterfall_speed"
+    ],
+    "reference": "http://138.4.7.25:1028/contextResponse",
+    "duration": "P1M",
+    "notifyConditions": [
+        {
+            "type": "ONCHANGE",
+            "condValues": [
+                "Temperature",
+                "Pressure",
+                "River level",
+                "Waterfall speed",
+            ]
+        }
+    ],
+    "throttling": "PT5S"
+};
 EOF

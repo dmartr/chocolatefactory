@@ -22,11 +22,10 @@ var payload = {
         {
             "type": "ONCHANGE",
             "condValues": [
-                "temperature",
-                "pressure",
-                "river_level",
-                "waterfall_speed"
-
+                "Temperature",
+                "Pressure",
+                "River level",
+                "Waterfall speed",
             ]
         }
     ],

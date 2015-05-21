@@ -1,5 +1,41 @@
 (curl localhost:8080/v1/unsubscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' -d @- | python -mjson.tool) <<EOF
 {
-  "subscriptionId": "5559ffa698fdcbc0452d9b22"
+  "subscriptionId": "555dda74983d5a5e2d61c774"
+}
+EOF
+
+
+curl localhost:8080/v1/updateContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' -d @- | python -mjson.tool) <<EOF
+{
+  "contextElements": [
+    {
+      "type": "Room",
+      "isPattern": "false",
+      "id": "Chocolate Room",
+      "attributes": [
+      {
+        "name": "temperature",
+        "type": "float",
+        "value": ""
+      },
+      {
+        "name": "pressure",
+        "type": "integer",
+        "value": ""
+       },
+       {
+        "name": "river_level",
+        "type": "string",
+        "value": ""
+       },
+       {
+        "name": "waterfall_speed",
+        "type": "float",
+        "value": ""
+       }
+      ]
+    }
+  ],
+  "updateAction": "DELETE"
 }
 EOF
