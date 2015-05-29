@@ -1,6 +1,6 @@
 (curl localhost:8080/v1/unsubscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' -d @- | python -mjson.tool) <<EOF
 {
-  "subscriptionId": "555dda74983d5a5e2d61c774"
+  "subscriptionId": "55672d35985def4a8e0c00c4"
 }
 EOF
 

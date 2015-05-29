@@ -33,10 +33,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /* ContextBroker variables  */
 var subID; 
+var subIds = [null];
 
 //var fiwareService = "OpenIoT";
 updateContext.updateChocolateRoom();
 updateContext.updateInventingRoom();
+updateContext.updateTelevisionRoom();
+updateContext.updateHall();
+updateContext.updateOffice();
+updateContext.updateElevator();
 
 /*
 queryContext.getContext(function(result){
@@ -45,20 +50,106 @@ queryContext.getContext(function(result){
 });
 */
 
-
-app.post("/contextResponse", function(req, resp){
+app.post("/contextResponseCR", function(req, resp){
     var theJson = req.body.contextResponses[0].contextElement
     var jsonr = JSON.stringify(theJson);
     subID = req.body.subscriptionId;
-    //io.emit("update", jsonr);
-    //console.log(jsonr);
-    console.log(subID);
+   console.log(subID);
+    var exist = subIds.indexOf(subID);
+        if(exist == -1){
+            subIds.push(subID);
+           //console.log("Id in");
+        }
+
     for(s in sockets){
-        sockets[s].emit('update', theJson);
+        sockets[s].emit('updateCR', theJson);
+    }
+});
+
+app.post("/contextResponseIR", function(req, resp){
+    var theJson = req.body.contextResponses[0].contextElement
+    var jsonr = JSON.stringify(theJson);
+    subID = req.body.subscriptionId;
+    var exist = subIds.indexOf(subID);
+    console.log(subID);
+        if(exist == -1){
+            subIds.push(subID);
+          // console.log("Id in");
+        }
+
+    for(s in sockets){
+        sockets[s].emit('updateIR', theJson);
     }
 
 });
 
+app.post("/contextResponseTR", function(req, resp){
+    var theJson = req.body.contextResponses[0].contextElement
+    var jsonr = JSON.stringify(theJson);
+    subID = req.body.subscriptionId;
+    var exist = subIds.indexOf(subID);
+    console.log(subID);
+        if(exist == -1){
+            subIds.push(subID);
+           console.log("Id in");
+        }
+
+    for(s in sockets){
+        sockets[s].emit('updateTR', theJson);
+    }
+
+});
+
+app.post("/contextResponseHall", function(req, resp){
+    var theJson = req.body.contextResponses[0].contextElement
+    var jsonr = JSON.stringify(theJson);
+    subID = req.body.subscriptionId;
+    var exist = subIds.indexOf(subID);
+    console.log(subID);
+        if(exist == -1){
+            subIds.push(subID);
+           console.log("Id in");
+        }
+
+    for(s in sockets){
+        sockets[s].emit('updateHall', theJson);
+    }
+
+});
+
+app.post("/contextResponseOffice", function(req, resp){
+    var theJson = req.body.contextResponses[0].contextElement
+    var jsonr = JSON.stringify(theJson);
+    subID = req.body.subscriptionId;
+    var exist = subIds.indexOf(subID);
+    console.log(subID);
+        if(exist == -1){
+            subIds.push(subID);
+           console.log("Id in");
+        }
+
+    for(s in sockets){
+        sockets[s].emit('updateOffice', theJson);
+    }
+
+});
+
+app.post("/contextResponseElevator", function(req, resp){
+    var theJson = req.body.contextResponses[0].contextElement
+    var jsonr = JSON.stringify(theJson);
+    subID = req.body.subscriptionId;
+    var exist = subIds.indexOf(subID);
+    console.log(subID);
+        if(exist == -1){
+            subIds.push(subID);
+           console.log("Id in");
+        }
+
+    for(s in sockets){
+        sockets[s].emit('updateElevator', theJson);
+    }
+
+});
     
 app.get('/', function (req, res) {    
     res.render('index');
@@ -66,8 +157,19 @@ app.get('/', function (req, res) {
 });
 
 app.get('/rooms', function(req, res){
-    if(subID!=undefined) subscriptions.unsubscribeContext(subID);
+    if(subIds.length > 0){
+         for(id in subIds){
+            subscriptions.unsubscribeContext(subIds[id]);
+            subIds.splice(id, 1);
+            console.log("Id out");
+         }
+    }
     subscriptions.subscribeChocolateContext();
+    subscriptions.subscribeTelevisionContext();
+    subscriptions.subscribeHallContext();
+    subscriptions.subscribeOfficeContext();
+    subscriptions.subscribeElevatorContext();
+    subscriptions.subscribeInventingContext();
     res.render('roomMap');
 })
 /*
@@ -76,14 +178,15 @@ app.post('/unsubscribe', function(req, res){
    
 });
 */
-
+/*
 for(s in sockets){
     
      sockets[s].on('subscribe', function(data){
         subcriptions.subscribeInventingContext();
+
     });
 }
-
+*/
 
 // catch 404 and forward to error handler
 /*
@@ -130,12 +233,36 @@ var io = require('socket.io').listen(server);
 io.on("connection", function(socket){
     sockets.push(socket);
     socket.on('subchocolate', function(data){
-        if(subID!=undefined) subscriptions.unsubscribeContext(subID);
-            subscriptions.subscribeChocolateContext();
+        if(subIds.length > 0){
+            for(id in subIds){
+                subscriptions.unsubscribeContext(subIds[id]);
+                subIds.splice(id, 0);
+                console.log("id out");
+            }
+        }
+         subscriptions.subscribeChocolateContext();
     }); 
+
     socket.on('subinventing', function(data){
-        if(subID!=undefined) subscriptions.unsubscribeContext(subID);
-            subscriptions.subscribeInventingContext();   
+        if(subIds.length > 0){
+            for(id in subIds){
+                subscriptions.unsubscribeContext(subIds[id]);
+                subIds.splice(id, 0);
+                console.log("id out");
+            }
+        }
+         subscriptions.subscribeInventingContext();   
+    });
+
+    socket.on('subtelevision', function(data){
+        if(subIds.length > 0){
+            for(id in subIds){
+                subscriptions.unsubscribeContext(subIds[id]);
+                subIds.splice(id, 0);
+                console.log("id out");
+            }
+        }
+         subscriptions.subscribeTelevisionContext();   
     });
 });
 

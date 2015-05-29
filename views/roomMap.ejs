@@ -8,20 +8,22 @@
     <script type="text/javascript" src="d3/d3.layout.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="client/script.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
   </head>
   <body>
     <div id="body">
     </div>
     <script type="text/javascript">
       var socket = io();
-      var theData = {};
+      var ChData = {}; var EnData = {}; var InData = {}; var WiData = {}; var ElData = {}; var TvData = {};
 
+      socket.on('updateCR', function(data){ ChData = data; });
+      socket.on('updateTR', function(data){ TvData = data; });
+      socket.on('updateHall', function(data){ EnData = data; });
+      socket.on('updateOffice', function(data){ WiData = data; });
+      socket.on('updateElevator', function(data){ ElData = data; });
+      socket.on('updateIR', function(data){ InData = data; });
 
-socket.on('update', function(data){
-  theData = data;
-  //console.log(message);
-
-});
     //VARIABLS GLOBALES
     var kx, ky, svg, w, h, x, y, root, node;
     var zoomeado = false;
@@ -37,7 +39,7 @@ socket.on('update', function(data){
       if (sizeX<200){
       	return "none";
       }
-      return "block";
+        return "block";
     }
 
     function scaleText(bigArea,smallArea){
@@ -112,7 +114,6 @@ socket.on('update', function(data){
   cell.append("svg:rect")
       .attr("width", function(d) { return d.dx - 1; })
       .attr("height", function(d) { return d.dy - 1; })
-
       .style("fill", function(d) { return "#fe5840"; });
 
 
@@ -139,6 +140,7 @@ socket.on('update', function(data){
 
   cell.append("svg:text")
     .attr("class","people")
+    .attr("id",function(d){ return d.id; })
     .attr("x", function(d) { return d.dx / 2 ; })
     .attr("y", function(d) { return d.dy / 2 ; })
     .attr("dy", ".35em")
@@ -207,47 +209,6 @@ function zoom(d) {
       .duration(d3.event.altKey ? 7500 : 750)
       .attr("transform", function(d) { return "translate(" + (kx*(d.dx) - 90) + "," + 50 + ")"; });
 
-
-    t2.select("rect.nonclient")
-      .attr("width", function(d) { return 10; })
-      .attr("height", function(d) {
-        if(theData[d.parent.name].count == 0) { return 0 }
-        return ((ky * (d.dy) - 90) / theData[d.parent.name].count) * theData[d.parent.name].nonclient.length })
-      .attr("y", function(d) { return 0 ; });
-
-    t2.select("rect.client")
-      .attr("width", function(d) { return 10; })
-      .attr("height", function(d) {
-        if(theData[d.parent.name].count == 0) { return 0 }
-        return ((ky * (d.dy) - 90) / theData[d.parent.name].count) * theData[d.parent.name].client.length })
-      .attr("y", function(d) {
-        if(theData[d.parent.name].count == 0) { return 0 }
-        return  ((ky * (d.dy) - 90) / theData[d.parent.name].count) * theData[d.parent.name].nonclient.length });
-
-    t2.select("rect.premium")
-      .attr("width", function(d) { return 10; })
-      .attr("height", function(d) {
-        if(theData[d.parent.name].count == 0) { return 0 }
-        return ((ky * (d.dy) - 90) / theData[d.parent.name].count) * theData[d.parent.name].premium.length })
-      .attr("y", function(d) {
-        if(theData[d.parent.name].count == 0) { return 0 }
-        return ((ky * (d.dy) - 90) / theData[d.parent.name].count) * (theData[d.parent.name].nonclient.length+theData[d.parent.name].client.length)  });
-
-    //ICONOS
-    t2.select("text.star")
-      .style("font-size","20px")
-      .attr("x",10)
-      .attr("y",function(d) {
-        if(theData[d.parent.name].count == 0){ return 0; }
-        return ((ky * (d.dy) - 90) / theData[d.parent.name].count) * (theData[d.parent.name].nonclient.length+theData[d.parent.name].client.length+theData[d.parent.name].premium.length)-5  })
-      .style("display",function(d){
-        if(theData[d.parent.name].premium.length == 0){
-          return "none";
-        }
-        return "block";
-      });
-
-
     t.select("circle")
       .attr("cx", function(d) { return kx * d.dx / 2; })
       .attr("cy", function(d) { return ky * d.dy / 2; })
@@ -311,20 +272,20 @@ var interval = setInterval(function(){
 
   t.select("rect")
     .style("fill", function(d) {
-      var theCount = theData.attributes[4].value;
+      var theCount = 5;
       if (theCount>=colores.length){
         return colores[colores.length-1];
       }
       return colores[theCount];
     });
-
-      t.select("text.people")
-        .text(function(d) {
-          return theData.attributes[4].value;
-        });
-
+   $("#en").html(EnData.attributes[2].value);
+   $("#tv").html(TvData.attributes[4].value);
+   $("#ch").html(ChData.attributes[4].value);
+   $("#wi").html(WiData.attributes[2].value);
+   $("#el").html(ElData.attributes[3].value);
+   $("#in").html(InData.attributes[4].value);
     var t2 = svg.selectAll(".graph");
-},1000);
+},200);
 
     </script>
   </body>
