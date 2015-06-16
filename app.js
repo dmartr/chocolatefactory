@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http').Server(app);
-
 var prettyjson = require('prettyjson');
 var fs = require("fs");
 var updateContext = require('./context_operations/updateContext');
@@ -13,6 +12,9 @@ var queryContext = require('./context_operations/queryContext');
 var subscriptions = require('./context_operations/subscription');
 var routes = require('./routes/index');
 //var users = require('./routes/users');
+//IdM requirements 
+var OAuth2 = require('./oauth2').OAuth2;
+var config = require('./config');
 
 var app = express();
 var sockets = [];
@@ -152,7 +154,7 @@ app.post("/contextResponseElevator", function(req, resp){
 });
     
 app.get('/', function (req, res) {    
-    res.render('index');
+    res.render('login');
    
 });
 

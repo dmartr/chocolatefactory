@@ -114,18 +114,18 @@ function randomInt(low, high){
     return Math.floor(Math.random() * (high - low)) + low;
   }
 
+
 exports.updateChocolateRoom = function(callback){
 	setInterval(function(){
 
-	function changelevel(){
-		var n = randomInt(0, 2);
-		if(n===0){
-			return "low";
-		} else if(n===1){
-			return "medium";
-		} else {
-			return "high";
-		}
+	function changelevel(rlevel){
+		var n = randomInt(0, 1);
+    if(n==0){
+      rlevel+=randomInt(1,5);
+    } else {
+      rlevel-=randomInt(1,5);
+    }
+    return rlevel;
 	}
 
   function movePeople(x){
@@ -133,14 +133,12 @@ exports.updateChocolateRoom = function(callback){
     if(dice == 0) x+=1;
     else x-=1;
   }
-
 	var temperature = randomNumber(20, 30);
 	var pressure = randomNumber(725, 7);
-	var rlevel = changelevel();
+	var rlevel = changelevel(50);
 	var wspeed = randomNumber(10, 50);
   //var occupation = 100 - randomInt(0,6);
   //console.log(occupation);
-
 	var payload = {
 	"contextElements": [
         {
@@ -158,11 +156,6 @@ exports.updateChocolateRoom = function(callback){
                 "type": "integer",
                 "value": pressure
             },
-           {
-               "name": "River level",
-               "type": "string",
-               "value": rlevel
-            },
             {
                "name": "Waterfall speed",
                "type": "float",
@@ -172,7 +165,12 @@ exports.updateChocolateRoom = function(callback){
               "name": "Occupation",
               "type": "integer",
               "value": zonesOc.cr
-            }
+            },
+            {
+              "name": "River level",
+              "type": "integer",
+              "value": rlevel
+           }
            ]
        }
    ],
@@ -200,11 +198,11 @@ var req = http.request(options, function(res) {
   //console.log('STATUS: ' + res.statusCode);
   //console.log('HEADERS: ' + JSON.stringify(res.headers));
   res.on('data', function (data) {
-   // console.log(data);
+    //console.log(data);
   });
 
   res.on('end', function() {
-    //console.log("Updated context for Chocolate Room");
+   //console.log("Updated context for Chocolate Room");
   });
 });
 
@@ -214,7 +212,7 @@ req.on('error', function(e) {
 
 req.write(payloadString);
 req.end();
-},2000);
+},1000);
 };
 
 exports.updateInventingRoom = function(callback){

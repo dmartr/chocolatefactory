@@ -7,29 +7,9 @@
       "id": "Inventing Room",
       "attributes": [
       {
-        "name": "Temperature",
-        "type": "float",
-        "value": "24"
-      },
-      {
-        "name": "Pressure",
+        "name": "River level",
         "type": "integer",
-        "value": "750"
-      },
-      {
-        "name": "Experimental Chewing Gum size",
-        "type": "float",
-        "value": "23"
-      },
-      {
-        "name": "Experiments volatility",
-        "type": "string",
-        "value": "medium"
-      },
-      {
-        "name": "Occupation",
-        "type": "integer",
-        "value": "100"
+        "value": "50"
       }
       ]
     }

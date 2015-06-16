@@ -14,9 +14,9 @@ var payload = {
     "attributes": [
         "Temperature",
         "Pressure",
-        "River level",
         "Waterfall speed",
-        "Occupation"
+        "Occupation",
+        "River level"
     ],
     "reference": "http://138.4.7.25:1028/contextResponseCR",
     "duration": "P1M",
@@ -26,9 +26,9 @@ var payload = {
             "condValues": [
                 "Temperature",
                 "Pressure",
-                "River level",
                 "Waterfall speed",
-                "Occupation"
+                "Occupation",
+                "River level"
 
             ]
         }
@@ -57,7 +57,7 @@ var req = http.request(options, function(res) {
   console.log('STATUS: ' + res.statusCode);
   console.log('HEADERS: ' + JSON.stringify(res.headers));
   res.on('data', function (data) {
-    console.log(data);
+   // console.log(data);
   });
 
   res.on('end', function() {
