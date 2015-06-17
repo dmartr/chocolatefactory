@@ -37,6 +37,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 var subID; 
 var subIds = [null];
 
+// Config data from config.js file
+var client_id = config.client_id;
+var client_secret = config.client_secret;
+var idmURL = config.idmURL;
+var callbackURL = config.callbackURL;
+
+// Creates oauth library object with the config data
+var oa = new OAuth2(client_id,
+                    client_secret,
+                    idmURL,
+                    '/oauth2/authorize',
+                    '/oauth2/token',
+                    callbackURL);
+
 //var fiwareService = "OpenIoT";
 updateContext.updateChocolateRoom();
 updateContext.updateInventingRoom();
@@ -154,8 +168,35 @@ app.post("/contextResponseElevator", function(req, resp){
 });
     
 app.get('/', function (req, res) {    
-    res.render('login');
+// If auth_token is not stored in a session cookie it sends a button to redirect to IDM authentication portal 
+    if(!req.session.access_token) {
+        res.send("Oauth2 IDM Demo.<br><br><button onclick='window.location.href=\"/auth\"'>Log in with FI-WARE Account</button>");
+
+    // If auth_token is stored in a session cookie it sends a button to get user info
+    } else {
+        res.send("Successfully authenticated. <br><br> Your oauth access_token: " +req.session.access_token + "<br><br><button onclick='window.location.href=\"/user_info\"'>Get my user info</button>");
+    }
+});
+
+app.get('/login', function(req, res){
    
+    // Using the access code goes again to the IDM to obtain the access_token
+    oa.getOAuthAccessToken(req.query.code, function (e, results){
+        // Stores the access_token in a session cookie
+        req.session.access_token = results.access_token;
+        res.redirect('/');
+    });
+});
+
+app.get('/auth', function(req, res){
+    var path = oa.getAuthorizeUrl();
+    res.redirect(path);
+});
+
+app.get('/logout', function(req, res){
+
+    req.session.access_token = undefined;
+    res.redirect('/');
 });
 
 app.get('/rooms', function(req, res){
@@ -226,7 +267,7 @@ if (app.get('env') === 'development') {
 });
 */
 
-var server = app.listen(1028, function () {
+var server = app.listen(80, function () {
   console.log('App listening at 1028');
 });
 
