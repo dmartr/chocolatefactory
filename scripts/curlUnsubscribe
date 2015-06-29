@@ -1,6 +1,6 @@
 (curl localhost:8080/v1/unsubscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' -d @- | python -mjson.tool) <<EOF
 {
-  "subscriptionId": "556730d5985def4a8e0c00d6"
+  "subscriptionId": "55915d5bb0fab35b79bbd30b"
 }
 EOF
 
@@ -11,16 +11,47 @@ EOF
     {
       "type": "Room",
       "isPattern": "false",
-      "id": "Chocolate Room",
-      "attributes": [
-       {
-        "name": "River level",
-        "type": "string",
-        "value": ""
-       }
-      ]
+      "id": "Chocolate ROom",
+      "attributes": []
     }
   ],
   "updateAction": "DELETE"
 }
 EOF
+
+
+(curl localhost:1026/v1/subscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' -d @- | python -mjson.tool) <<EOF
+{
+entities": [
+        {
+            "type": "Room",
+            "isPattern": "false",
+            "id": "Chocolate Room"
+        }
+    ],
+    "attributes": [
+        "Temperature",
+        "Pressure",
+        "Waterfall speed",
+        "Occupation",
+        "River level"
+    ],
+    "reference": "http://localhost:1028/contextResponseCR",
+    "duration": "P1M",
+    "notifyConditions": [
+        {
+            "type": "ONCHANGE",
+            "condValues": [
+                "Temperature",
+                "Pressure",
+                "Waterfall speed",
+                "Occupation",
+                "River level"
+
+            ]
+        }
+    ],
+    "throttling": "PT5S"
+}
+EOF
+

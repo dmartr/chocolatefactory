@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
-     <link href="stylesheets/style.css" rel="stylesheet">
+     <link href="stylesheets/styles.css" rel="stylesheet">
     <script type="text/javascript" src="d3/d3.js"></script>
     <script type="text/javascript" src="d3/d3.layout.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -19,10 +19,10 @@
 
       socket.on('updateCR', function(data){ ChData = data; });
       socket.on('updateTR', function(data){ TvData = data; });
-      socket.on('updateHall', function(data){ EnData = data; });
-      socket.on('updateOffice', function(data){ WiData = data; });
-      socket.on('updateElevator', function(data){ ElData = data; });
-      socket.on('updateIR', function(data){ InData = data; });
+      socket.on('updateHall', function(data){ EnData = data;});
+      socket.on('updateOffice', function(data){ WiData = data;});
+      socket.on('updateElevator', function(data){ ElData = data;});
+      socket.on('updateIR', function(data){ InData = data;});
 
     //VARIABLS GLOBALES
     var kx, ky, svg, w, h, x, y, root, node;
@@ -278,12 +278,18 @@ var interval = setInterval(function(){
       }
       return colores[theCount];
     });
-   $("#en").html(EnData.attributes[2].value);
-   $("#tv").html(TvData.attributes[4].value);
-   $("#ch").html(ChData.attributes[4].value);
-   $("#wi").html(WiData.attributes[2].value);
-   $("#el").html(ElData.attributes[3].value);
-   $("#in").html(InData.attributes[4].value);
+    console.log(EnData);
+    console.log(TvData.attributes[1].value);
+    console.log(ChData);
+    console.log(WiData);
+    console.log(ElData);
+    console.log(InData);
+   $("#en").html(EnData.attributes[0].value);
+   $("#tv").html(TvData.attributes[3].value);
+   $("#ch").html(ChData.attributes[0].value);
+   $("#wi").html(WiData.attributes[0].value);
+   $("#el").html(ElData.attributes[1].value);
+   $("#in").html(InData.attributes[2].value);
     var t2 = svg.selectAll(".graph");
 },200);
 

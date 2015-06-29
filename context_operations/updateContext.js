@@ -162,14 +162,14 @@ exports.updateChocolateRoom = function(callback){
                "value": wspeed
             },
             {
-              "name": "Occupation",
-              "type": "integer",
-              "value": zonesOc.cr
-            },
-            {
               "name": "River level",
               "type": "integer",
               "value": rlevel
+            },
+            {
+              "name": "Occupation",
+              "type": "integer",
+              "value": zonesOc.cr
            }
            ]
        }

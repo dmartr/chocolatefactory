@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -7,11 +8,13 @@ var bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var prettyjson = require('prettyjson');
 var fs = require("fs");
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
 var updateContext = require('./context_operations/updateContext');
 var queryContext = require('./context_operations/queryContext');
 var subscriptions = require('./context_operations/subscription');
-var routes = require('./routes/index');
-//var users = require('./routes/users');
+
+
 //IdM requirements 
 var OAuth2 = require('./oauth2').OAuth2;
 var config = require('./config');
@@ -29,7 +32,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(session({
+    secret: "skjghskdjfhbqigohqdiouk"
+}));
 //app.use('/', routes);
 //app.use('/users', users);
 
@@ -167,24 +172,41 @@ app.post("/contextResponseElevator", function(req, resp){
 
 });
     
-app.get('/', function (req, res) {    
-// If auth_token is not stored in a session cookie it sends a button to redirect to IDM authentication portal 
-    if(!req.session.access_token) {
-        res.send("Oauth2 IDM Demo.<br><br><button onclick='window.location.href=\"/auth\"'>Log in with FI-WARE Account</button>");
-
-    // If auth_token is stored in a session cookie it sends a button to get user info
+app.get('/', function (req, res) { 
+   if(!req.session.access_token) {
+        res.render('login');
+    //If auth_token is stored in a session cookie it sends a button to get user info
     } else {
-        res.send("Successfully authenticated. <br><br> Your oauth access_token: " +req.session.access_token + "<br><br><button onclick='window.location.href=\"/user_info\"'>Get my user info</button>");
+        res.redirect("/index");
+        console.log(req.session.access_token);
     }
 });
 
+app.get('/index', function(req, res) {
+     var url = config.idmURL + '/user/';
+     //res.render('index');
+      oa.get(url, req.session.access_token, function (e, response) {
+        var user = JSON.parse(response);
+        //console.log(user); 
+        //res.send("Welcome " + user.displayName + "<br> Your email address is " + user.email + " and your role " + user.roles[0].name + " <br><br><button onclick='window.location.href=\"/logout\"'>Log out</button>");
+     if(user.roles[0].name == "Factory Owner"){
+     	res.redirect('/admin-menu');
+     } else if(user.roles[0].name == "Television Room Oompa Loompa") {
+     	res.redirect('/televisionroom')
+     } else if(user.roles[0].name == "Chocolate Room Oompa Loompa") {
+     	res.redirect('/chocolateroom')
+     } else if(user.roles[0].name == "Inventing Room Oompa Loompa") {
+     	res.redirect('/inventingroom');
+     }
+    });
+})
+
 app.get('/login', function(req, res){
-   
     // Using the access code goes again to the IDM to obtain the access_token
     oa.getOAuthAccessToken(req.query.code, function (e, results){
         // Stores the access_token in a session cookie
         req.session.access_token = results.access_token;
-        res.redirect('/');
+        res.redirect('/index');
     });
 });
 
@@ -194,12 +216,14 @@ app.get('/auth', function(req, res){
 });
 
 app.get('/logout', function(req, res){
-
-    req.session.access_token = undefined;
+    var url = config.idmURL + '/auth/logout';
+    req.session.access_token = undefined;  
+    var request = new XMLHttpRequest();
+    request.open("POST", url, true);
     res.redirect('/');
 });
 
-app.get('/rooms', function(req, res){
+app.get('/admin-map', function(req, res){
     if(subIds.length > 0){
          for(id in subIds){
             subscriptions.unsubscribeContext(subIds[id]);
@@ -215,59 +239,36 @@ app.get('/rooms', function(req, res){
     subscriptions.subscribeInventingContext();
     res.render('roomMap');
 })
-/*
-app.post('/unsubscribe', function(req, res){
-    console.log(subID);
-   
+
+app.get('/admin-menu', function(req, res){
+    res.render('adminMenu');
 });
-*/
-/*
-for(s in sockets){
-    
-     sockets[s].on('subscribe', function(data){
-        subcriptions.subscribeInventingContext();
 
-    });
-}
-*/
-
-// catch 404 and forward to error handler
-/*
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+app.get('/admin-rooms', function(req, res){
+    if(subIds.length > 0){
+         for(id in subIds){
+            subscriptions.unsubscribeContext(subIds[id]);
+            subIds.splice(id, 1);
+            console.log("Id out");
+         }
+    }
+    subscriptions.subscribeChocolateContext();
+    res.render('roomsAdmin');
 });
-/*
-// error handlers
 
-// development error handler
-// will print stacktrace
-/*
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-}
-*/
-
-
-// production error handler
-// no stacktraces leaked to user
-/* app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+app.get('/televisionroom', function(req, res){
+    res.render('televisionRoom');
 });
-*/
 
-var server = app.listen(80, function () {
+app.get('/inventingroom', function(req, res){
+    res.render('inventingRoom');
+});
+
+app.get('/chocolateroom', function(req, res){
+    res.render('chocolateRoom');
+});
+
+var server = app.listen(1028, function () {
   console.log('App listening at 1028');
 });
 

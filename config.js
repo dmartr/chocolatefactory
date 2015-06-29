@@ -1,8 +1,8 @@
 var config = {}
 
-config.idmURL = 'https://account.lab.fiware.org';
-config.client_id = '429b472b5f974891bcb092bc641e6772';
-config.client_secret = '7c5ff5a7ae0448c793d105baf9867188';
-config.callbackURL = 'http://localhost/login';
+config.idmURL = 'http://localhost:8000';
+config.client_id = '5d43e494421946edbb2add4a630f34f2';
+config.client_secret = '76eafec1c7a545faa07a9007ad523fb9';
+config.callbackURL = 'http://localhost:1028/login';
 
 module.exports = config;

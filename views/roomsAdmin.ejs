@@ -1,0 +1,147 @@
+<!DOCTYPE html>  
+<html lang="en">  
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome to the chocolate factory</title>
+    <script src="http://localhost:1028/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="javascripts/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="javascripts/liquidFillGauge.js"></script>
+     <script type="text/javascript" src="javascripts/thermometer.js"></script>
+      <script type="text/javascript" src="javascripts/gauge.js"></script>
+     <script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
+     <script>
+    $(document).ready(function() {
+        var socket = io();
+        var config2 = liquidFillGaugeDefaultSettings();
+          config2.circleColor = "#D4AB6A";
+          config2.textColor = "#553300";
+          config2.waveTextColor = "#805615";
+          config2.waveColor = "#AA7D39";
+          config2.circleThickness = 0.1;
+          config2.circleFillGap = 0.2;
+          config2.textVertPosition = 0.8;
+          config2.waveAnimateTime = 2000;
+          config2.waveHeight = 0.3;
+          config2.waveCount = 1;
+
+      var gauge;
+        function createGauge(name, label, min, max){
+          var config = 
+          {
+            size: 200,
+            label: label,
+            min: undefined != min ? min : 0,
+            max: undefined != max ? max : 100,
+            minorTicks: 5
+          };
+        
+        var range = config.max - config.min;
+        config.yellowZones = [{ from: config.min + range*0.75, to: config.min + range*0.9 }];
+        config.redZones = [{ from: config.min + range*0.9, to: config.max }];
+        
+        gauge = new Gauge(name + "GaugeContainer", config);
+      }
+
+      createGauge("power", "Power", 0, 15000);
+
+          
+        socket.on('updateCR', function (data) { 
+          console.log(data);
+          var x = Math.round(data.attributes[3].value * 100) / 100; 
+          var y = Math.round(data.attributes[1].value * 100) / 100; 
+          var z = Math.round(data.attributes[4].value * 100) / 100; 
+          var level = data.attributes[2].value;
+          var levelIcon = '<svg id="fillgauge3" width="80%" height="200"></svg>';
+          var tempIcon = '<div class="container"><div class="de"><div class="den"><div class="dene"><div class="denem"><div class="deneme">'+x+'<strong>&deg;</strong></div></div></div></div></div></div>';
+          var levelgrap = data.attributes[2].value;
+          $("#name").html(data.id);
+          $('#natt1').html(data.attributes[3].name);
+          $('#natt2').html(data.attributes[1].name);
+          $('#natt3').html(data.attributes[2].name);
+          $('#natt4').html(data.attributes[4].name);
+          $('#att1').html(tempIcon);
+          $('#att2').html(y);
+          $('#att3').html(levelIcon);
+          $('#att4').html(z);
+          thermometer(45, x, true);
+          loadLiquidFillGauge("fillgauge3", levelgrap, config2);
+        });
+
+         socket.on('updateIR', function (data) { 
+          console.log(data);
+          var x = Math.round(data.attributes[4].value * 100) / 100; 
+          var y = Math.round(data.attributes[3].value * 100) / 100; 
+          var z = Math.round(data.attributes[0].value * 100) / 100; 
+           var tempIcon = '<div class="container"><div class="de"><div class="den"><div class="dene"><div class="denem"><div class="deneme">'+x+'<strong>&deg;</strong></div></div></div></div></div></div>';
+          $("#name").html(data.id);
+          $('#natt1').html(data.attributes[4].name);
+          $('#natt2').html(data.attributes[3].name);
+          $('#natt3').html(data.attributes[0].name);
+          $('#natt4').html(data.attributes[1].name);
+          $('#att1').html(tempIcon);
+          $('#att2').html(y);
+          $('#att3').html(z);
+          $('#att4').html(data.attributes[1].value);
+        });
+
+         socket.on("updateTR", function (data){
+          console.log(data);
+          var x = Math.round(data.attributes[4].value * 100) / 100; 
+          var y = Math.round(data.attributes[2].value * 100) / 100; 
+          var z = Math.round(data.attributes[1].value * 100) / 100; 
+          var tempIcon = '<div class="container"><div class="de"><div class="den"><div class="dene"><div class="denem"><div class="deneme">'+x+'<strong>&deg;</strong></div></div></div></div></div></div>'; 
+          var powerIcon= '<span id="powerGaugeContainer"></span>';
+          $("#name").html(data.id);
+          $('#natt1').html(data.attributes[4].name);
+          $('#natt2').html(data.attributes[2].name);
+          $('#natt3').html(data.attributes[3].name);
+          $('#natt4').html(data.attributes[1].name);
+          $('#att1').html(tempIcon);
+          $('#att2').html(y);
+          $('#att3').html('<div id="tvs">'+data.attributes[3].value+'</div>');
+          $('#att4').html(powerIcon);
+          gauge.render();
+          gauge.redraw(z);
+         });
+
+        $("#subChocolate").click(function(){
+          socket.emit("subchocolate", "Subscribing!");
+        });
+        $("#subInventing").click(function(){
+          socket.emit("subinventing", "Subscribing!");
+        });
+        $("#subTelevision").click(function(){
+          socket.emit("subtelevision", "Subscribing!");
+        });
+
+        
+     });
+       </script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+  </head>
+  <body id="index">
+    <div id="wrap">
+  <div class="container">
+   <div id='warped'>
+  <div class="container text-center align-center">
+    <h1 class="page-header">Chocolate Factory control panel</h1>
+    <h2 id="name"></h2>
+    <div class="col-md-3"><h3 id="natt1"></h3><span id="att1"></span></div>
+    <div class="col-md-3"><h3 id="natt2"></h3><span id="att2"></span></div>
+    <div class="col-md-3"><h3 id="natt3"></h3><div id="att3"></div></div>
+    <div class="col-md-3"><h3 id="natt4"></h3><span id="att4"></span></div>
+    <div class="btn-group .btn-group-justified room-select">
+       <button id="subChocolate" class="btn btn-primary" type="submit">Chocolate Room</button>
+       <button id="subInventing" class="btn btn-primary" type="submit">Inventing Room</button>
+       <button id="subTelevision"  class="btn btn-primary" type="submit">Television Room</button>
+    </div> 
+    </div>
+    </div>
+    </div>
+    </div>
+     <footer class="footer">   
+  </footer>
+  </body>
+</html>  
