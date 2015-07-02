@@ -8,25 +8,25 @@ var bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var prettyjson = require('prettyjson');
 var fs = require("fs");
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-
+var http = require('http');
+var app = express();
 var updateContext = require('./context_operations/updateContext');
 var queryContext = require('./context_operations/queryContext');
 var subscriptions = require('./context_operations/subscription');
-
 
 //IdM requirements 
 var OAuth2 = require('./oauth2').OAuth2;
 var config = require('./config');
 
-var app = express();
+//socket array for multiple data streams
 var sockets = [];
-// view engine setup
+
+// ejs view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,20 +35,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: "skjghskdjfhbqigohqdiouk"
 }));
-//app.use('/', routes);
-//app.use('/users', users);
 
-/* ContextBroker variables  */
+/* ContextBroker subscriptions variables  */
 var subID; 
 var subIds = [null];
 
-// Config data from config.js file
+// IdM config data from config.js file
 var client_id = config.client_id;
 var client_secret = config.client_secret;
 var idmURL = config.idmURL;
 var callbackURL = config.callbackURL;
 
-// Creates oauth library object with the config data
+/*IdM User Data variables*/
+
+var userName;
+var userRole;
+
+// Creates oauth library object with the IdM config data
 var oa = new OAuth2(client_id,
                     client_secret,
                     idmURL,
@@ -56,7 +59,7 @@ var oa = new OAuth2(client_id,
                     '/oauth2/token',
                     callbackURL);
 
-//var fiwareService = "OpenIoT";
+/* Context information updates from the virtual sensors */
 updateContext.updateChocolateRoom();
 updateContext.updateInventingRoom();
 updateContext.updateTelevisionRoom();
@@ -64,13 +67,9 @@ updateContext.updateHall();
 updateContext.updateOffice();
 updateContext.updateElevator();
 
-/*
-queryContext.getContext(function(result){
-	var returnedData = result; 
-	//console.log('Return:' + returnedData); 
-});
-*/
+/* Context information responses for each Room on data change  */ 
 
+//Chocolate Room
 app.post("/contextResponseCR", function(req, resp){
     var theJson = req.body.contextResponses[0].contextElement
     var jsonr = JSON.stringify(theJson);
@@ -87,6 +86,7 @@ app.post("/contextResponseCR", function(req, resp){
     }
 });
 
+//Inventing Room
 app.post("/contextResponseIR", function(req, resp){
     var theJson = req.body.contextResponses[0].contextElement
     var jsonr = JSON.stringify(theJson);
@@ -104,6 +104,7 @@ app.post("/contextResponseIR", function(req, resp){
 
 });
 
+//Television Room
 app.post("/contextResponseTR", function(req, resp){
     var theJson = req.body.contextResponses[0].contextElement
     var jsonr = JSON.stringify(theJson);
@@ -121,6 +122,7 @@ app.post("/contextResponseTR", function(req, resp){
 
 });
 
+//Big hall 
 app.post("/contextResponseHall", function(req, resp){
     var theJson = req.body.contextResponses[0].contextElement
     var jsonr = JSON.stringify(theJson);
@@ -138,6 +140,7 @@ app.post("/contextResponseHall", function(req, resp){
 
 });
 
+//Willy Wonka's office
 app.post("/contextResponseOffice", function(req, resp){
     var theJson = req.body.contextResponses[0].contextElement
     var jsonr = JSON.stringify(theJson);
@@ -155,6 +158,7 @@ app.post("/contextResponseOffice", function(req, resp){
 
 });
 
+//Elevator
 app.post("/contextResponseElevator", function(req, resp){
     var theJson = req.body.contextResponses[0].contextElement
     var jsonr = JSON.stringify(theJson);
@@ -171,11 +175,12 @@ app.post("/contextResponseElevator", function(req, resp){
     }
 
 });
+
+/* Page router and Pep-Proxy connection for permission handling */
     
 app.get('/', function (req, res) { 
    if(!req.session.access_token) {
         res.render('login');
-    //If auth_token is stored in a session cookie it sends a button to get user info
     } else {
         res.redirect("/index");
         console.log(req.session.access_token);
@@ -184,22 +189,23 @@ app.get('/', function (req, res) {
 
 app.get('/index', function(req, res) {
      var url = config.idmURL + '/user/';
-     //res.render('index');
       oa.get(url, req.session.access_token, function (e, response) {
         var user = JSON.parse(response);
-        //console.log(user); 
-        //res.send("Welcome " + user.displayName + "<br> Your email address is " + user.email + " and your role " + user.roles[0].name + " <br><br><button onclick='window.location.href=\"/logout\"'>Log out</button>");
-     if(user.roles[0].name == "Factory Owner"){
+        console.log(user); 
+        userName = user.displayName;
+        userRole = user.roles[0].name;
+   
+     if(userRole == "Factory Owner"){
      	res.redirect('/admin-menu');
-     } else if(user.roles[0].name == "Television Room Oompa Loompa") {
+     } else if(userRole == "Television Room Oompa Loompa") {
      	res.redirect('/televisionroom')
-     } else if(user.roles[0].name == "Chocolate Room Oompa Loompa") {
+     } else if(userRole == "Chocolate Room Oompa Loompa") {
      	res.redirect('/chocolateroom')
-     } else if(user.roles[0].name == "Inventing Room Oompa Loompa") {
+     } else if(userRole == "Inventing Room Oompa Loompa") {
      	res.redirect('/inventingroom');
      }
     });
-})
+});
 
 app.get('/login', function(req, res){
     // Using the access code goes again to the IDM to obtain the access_token
@@ -216,21 +222,32 @@ app.get('/auth', function(req, res){
 });
 
 app.get('/logout', function(req, res){
-    var url = config.idmURL + '/auth/logout';
     req.session.access_token = undefined;  
-    var request = new XMLHttpRequest();
-    request.open("POST", url, true);
     res.redirect('/');
 });
 
 app.get('/admin-map', function(req, res){
-    if(subIds.length > 0){
-         for(id in subIds){
-            subscriptions.unsubscribeContext(subIds[id]);
-            subIds.splice(id, 1);
-            console.log("Id out");
-         }
-    }
+	 var headers = {
+    'X-Auth-Token': req.session.access_token
+    };
+
+    var options = {
+        host: 'localhost',
+        port: '8070',
+        path: '/admin-map',
+        headers: headers
+    };
+    var req = http.request(options, function(response) {
+  	 response.setEncoding('utf-8');
+ 	 console.log('STATUS: ' + response.statusCode);
+ 	 if(response.statusCode == 200){
+  	 	 if(subIds.length > 0){
+	         for(id in subIds){
+	            subscriptions.unsubscribeContext(subIds[id]);
+	            subIds.splice(id, 1);
+	            console.log("Id out");
+	         }
+    	}
     subscriptions.subscribeChocolateContext();
     subscriptions.subscribeTelevisionContext();
     subscriptions.subscribeHallContext();
@@ -238,34 +255,143 @@ app.get('/admin-map', function(req, res){
     subscriptions.subscribeElevatorContext();
     subscriptions.subscribeInventingContext();
     res.render('roomMap');
-})
+
+  	} else if (response.statusCode == 401) {
+    	res.redirect('/notAuthorized');
+  	} 
+	});
+   req.end();
+ });  
 
 app.get('/admin-menu', function(req, res){
-    res.render('adminMenu');
+
+     var headers = {
+    'X-Auth-Token': req.session.access_token
+    };
+
+    var options = {
+        host: 'localhost',
+        port: '8070',
+        path: '/admin-menu',
+        headers: headers
+    };
+   var req = http.request(options, function(response) {
+	  	 response.setEncoding('utf-8');
+	 	 console.log('STATUS: ' + response.statusCode);
+	 	 if(response.statusCode == 200){
+	  	 	res.render('adminMenu');
+	  	 }else if(response.statusCode == 401){
+	    	res.redirect('/notAuthorized');
+	  	} 
+	});
+req.end();
 });
 
 app.get('/admin-rooms', function(req, res){
-    if(subIds.length > 0){
-         for(id in subIds){
-            subscriptions.unsubscribeContext(subIds[id]);
-            subIds.splice(id, 1);
-            console.log("Id out");
+
+     var headers = {
+    'X-Auth-Token': req.session.access_token
+    };
+
+    var options = {
+        host: 'localhost',
+        port: '8070',
+        path: '/admin-rooms',
+        headers: headers
+    };
+
+    var req = http.request(options, function(response) {
+  		response.setEncoding('utf-8');
+ 	 	console.log('STATUS: ' + response.statusCode);
+  //console.log('HEADERS: ' + JSON.stringify(res.headers));
+  		if(response.statusCode == 200){
+    		if(subIds.length > 0){
+         	for(id in subIds){
+            	subscriptions.unsubscribeContext(subIds[id]);
+            	subIds.splice(id, 1);
+            	console.log("Id out");
          }
     }
-    subscriptions.subscribeChocolateContext();
-    res.render('roomsAdmin');
+    		subscriptions.subscribeChocolateContext();
+    		res.render('roomsAdmin');
+  		}else if(response.statusCode == 401){
+  			res.redirect('/notAuthorized');
+ 		} 
+	});
+	req.end();  
 });
 
 app.get('/televisionroom', function(req, res){
-    res.render('televisionRoom');
-});
+	 var headers = {
+    'X-Auth-Token': req.session.access_token
+    };
+    var options = {
+        host: 'localhost',
+        port: '8070',
+        path: '/televisionroom',
+        headers: headers
+    };
+   var req = http.request(options, function(response) {
+	  	 response.setEncoding('utf-8');
+	 	 console.log('STATUS: ' + response.statusCode);
+	 	 	if(response.statusCode == 200){
+	  	 		res.render('televisionRoom');
+	  		}
+	  		else if(response.statusCode == 401){
+	    		res.redirect('/notAuthorized');
+	  		} 
+		});
+  	 req.end();
+ });
 
 app.get('/inventingroom', function(req, res){
-    res.render('inventingRoom');
+    var headers = {
+    	'X-Auth-Token': req.session.access_token
+    };
+    var options = {
+        host: 'localhost',
+        port: '8070',
+        path: '/inventingroom',
+        headers: headers
+    };
+   var req = http.request(options, function(response) {
+	  	 response.setEncoding('utf-8');
+	 	 console.log('STATUS: ' + response.statusCode);
+	 	 if(response.statusCode == 200){
+	  	 	res.render('inventingRoom');
+	  	}
+	  	else if(response.statusCode == 401){
+	    	res.redirect('/notAuthorized');
+	  	} 
+	});
+   req.end();
 });
 
 app.get('/chocolateroom', function(req, res){
-    res.render('chocolateRoom');
+	 var headers = {
+    	'X-Auth-Token': req.session.access_token
+    };
+    var options = {
+        host: 'localhost',
+        port: '8070',
+        path: '/chocolateroom',
+        headers: headers
+    };
+   var req = http.request(options, function(response) {
+	  	 response.setEncoding('utf-8');
+	 	 console.log('STATUS: ' + response.statusCode);
+	 	 	if(response.statusCode == 200){
+	  	 		res.render('chocolateRoom');
+	  		}
+	  		else if(response.statusCode == 401){
+	    		res.redirect('/notAuthorized');
+	  		} 
+		});
+  	 req.end();
+ });
+
+app.get('/notAuthorized', function(req, res){
+    res.render('notauthorized');
 });
 
 var server = app.listen(1028, function () {
