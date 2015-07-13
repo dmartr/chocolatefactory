@@ -37,7 +37,7 @@
 
     function shouldDisplay(sizeX){
       if (sizeX<200){
-      	return "none";
+        return "none";
       }
         return "block";
     }
@@ -114,7 +114,7 @@
   cell.append("svg:rect")
       .attr("width", function(d) { return d.dx - 1; })
       .attr("height", function(d) { return d.dy - 1; })
-      .style("fill", function(d) { return "#fe5840"; });
+      .style("fill", function(d) { return "#c3578d"; });
 
 
   cell.append("svg:text")
@@ -240,7 +240,7 @@ function zoom(d) {
       .attr("cx", function(d) { return kx * d.dx / 2; })
       .attr("cy", function(d) { return ky * d.dy / 2; })
       .attr("r", function(d) {
-	return scaleRadio(w*h,d.dx*d.dy); })
+  return scaleRadio(w*h,d.dx*d.dy); })
       .style("box-shadow", "0 1px 0 #000")
       .style("fill", function(d) { return "#fff"; });
 
@@ -267,16 +267,11 @@ var interval = setInterval(function(){
   //COLORES DE FONDO EN TIEMPO REAL
   //---------------------------------
   var t = svg.selectAll('g.cell');
-  var colores =["#ff9999", "#ff8888", "#ff7777", "#ff6666", "#ff5555",
-    "#ff4444", "#ff3333", "#ff2222", "#ff1111", "#ff0000","#eb0000"];
+  var colores =["#ff4444"];
 
   t.select("rect")
     .style("fill", function(d) {
-      var theCount = 5;
-      if (theCount>=colores.length){
-        return colores[colores.length-1];
-      }
-      return colores[theCount];
+      return colores[0];
     });
     console.log(EnData);
     console.log(TvData.attributes[1].value);

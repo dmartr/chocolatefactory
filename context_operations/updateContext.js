@@ -40,6 +40,7 @@ probMatrix.sf = {
 var oc0 = 150;
 var zonesOc = {cr:0,en:oc0,tr:0,ir:0,wi:0,el:0,sf:0};
 
+
 function changeZone(a, b){
   if(a!=0){
   a=a-1; b=b+1;
@@ -114,6 +115,26 @@ function randomInt(low, high){
     return Math.floor(Math.random() * (high - low)) + low;
   }
 
+ function changeTemp(temp){
+ 	var deltat = randomNumber(0,2);
+ 	var dice = randomInt(0,1);
+ 	if(dice == 1){
+ 		return temp - deltat;
+ 	} else {
+ 		return temp + deltat;
+ 	}
+ }
+
+ function changePres(pres){
+ 	var deltap = randomInt(0,50);
+ 	var dice = randomInt(0,1);
+ 	if(dice == 1){
+ 		return pres - deltap;
+ 	} else {
+ 		return pres + deltap;
+ 	}
+ }
+
 
 exports.updateChocolateRoom = function(callback){
 	setInterval(function(){
@@ -128,17 +149,10 @@ exports.updateChocolateRoom = function(callback){
     return rlevel;
 	}
 
-  function movePeople(x){
-    var dice = randomInt(0,1);
-    if(dice == 0) x+=1;
-    else x-=1;
-  }
-	var temperature = randomNumber(20, 30);
-	var pressure = randomNumber(725, 7);
+	var temperature = changeTemp(26)
+	var pressure = changePres(750);
 	var rlevel = changelevel(50);
 	var wspeed = randomNumber(10, 50);
-  //var occupation = 100 - randomInt(0,6);
-  //console.log(occupation);
 	var payload = {
 	"contextElements": [
         {
@@ -231,8 +245,8 @@ exports.updateInventingRoom = function(callback){
     }
   }
 
-  var temperature = randomNumber(20, 30);
-  var pressure = randomNumber(725, 7);
+  var temperature = changeTemp(24);
+  var pressure = changePres(760);
   var expVol = changeVolatility();
   var chSz = randomNumber(10, 50);
 
@@ -319,12 +333,10 @@ exports.updateTelevisionRoom = function(callback){
     return 322*nTVs;
   }
 
-  var temperature = randomNumber(20, 30);
-  var pressure = randomNumber(725, 7);
+  var temperature = changeTemp(23);
+  var pressure = changePres(740);
   var nTV = randomInt(10, 30);
   var power = powerConsumed(nTV);
-  var occupation = 100 - randomInt(0,6);
-
   var payload = {
   "contextElements": [
         {
@@ -404,8 +416,8 @@ req.end();
 exports.updateHall = function(callback){
   setInterval(function(){
 
-  var temperature = randomNumber(20, 30);
-  var pressure = randomNumber(725, 7);
+  var temperature = changeTemp(23);
+  var pressure = changePres(750);
 
   var payload = {
   "contextElements": [
@@ -476,8 +488,8 @@ req.end();
 exports.updateOffice = function(callback){
   setInterval(function(){
 
-  var temperature = randomNumber(20, 30);
-  var pressure = randomNumber(725, 7);
+  var temperature = changeTemp(23);
+  var pressure = changePres(750);
 
   var payload = {
   "contextElements": [
@@ -547,10 +559,8 @@ req.end();
 
 exports.updateElevator= function(callback){
   setInterval(function(){
-
-  
-  var temperature = randomNumber(20, 30);
-  var pressure = randomNumber(725, 7);
+  var temperature = changeTemp(24);
+  var pressure = changePres(720);
   var theFloor = randomInt(0, 2);
 
   var payload = {

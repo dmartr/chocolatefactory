@@ -394,6 +394,21 @@ app.get('/notAuthorized', function(req, res){
     res.render('notauthorized');
 });
 
+app.get('/back', function(req, res){
+	 if(userRole == "Factory Owner"){
+     	res.redirect('/admin-menu');
+     } else if(userRole == "Television Room Oompa Loompa") {
+     	res.redirect('/televisionroom')
+     } else if(userRole == "Chocolate Room Oompa Loompa") {
+     	res.redirect('/chocolateroom')
+     } else if(userRole == "Inventing Room Oompa Loompa") {
+     	res.redirect('/inventingroom');
+     } else {
+     	res.redirect('/');
+     }
+});
+
+
 var server = app.listen(1028, function () {
   console.log('App listening at 1028');
 });

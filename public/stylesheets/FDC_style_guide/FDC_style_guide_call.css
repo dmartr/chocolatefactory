@@ -4,8 +4,8 @@
 /****************************** layouts */
 /****************************** layouts */
 /* line 1, ../../sass/FDC_style_guide/general/layouts/_footer.scss */
-footer {
-  height: 193px;
+#index footer {
+  height: 296px;
   background-image: url(../images/footer.png);
   position: relative;
 }
@@ -82,7 +82,7 @@ body {
   height: auto !important;
   height: 100%;
   /* Negative indent footer by its height */
-  margin: 0 auto -193px;
+  margin: 0px auto -296px;
   /* Pad bottom by footer height */
   padding: 0px;
 }
@@ -122,9 +122,10 @@ body {
   border-bottom-right-radius: 198px;
   background-clip: content-box;
   padding: 1px;
+  z-index: 199;
 }
 
-/* line 23, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 24, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 .display {
   min-height: 233px;
   margin-top: 23px;
@@ -133,18 +134,18 @@ body {
   color: #f5e900;
 }
 
-/* line 30, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 31, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 .display, .logo {
   border-bottom-left-radius: 173px;
   border-bottom-right-radius: 198px;
 }
 
-/* line 35, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 36, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 .login-form {
   margin-top: 60px;
 }
 
-/* line 39, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 40, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 form[role=login] {
   color: #5d5d5d;
   background: rgba(255, 255, 255, 0.66);
@@ -154,38 +155,38 @@ form[role=login] {
   -webkit-border-radius: 10px;
 }
 
-/* line 47, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 48, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 form[role=login] img {
   display: block;
   margin: 0 auto;
   margin-bottom: 35px;
 }
 
-/* line 52, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 53, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 form[role=login] input,
 form[role=login] button {
   font-size: 18px;
   margin: 16px 0;
 }
 
-/* line 57, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 58, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 form[role=login] > div {
   text-align: center;
 }
 
-/* line 61, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 62, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 .form-links {
   text-align: center;
   margin-top: 1em;
   margin-bottom: 50px;
 }
 
-/* line 66, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 67, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 .form-links a {
   color: #fff;
 }
 
-/* line 72, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 73, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped {
   position: relative;
   display: inline;
@@ -194,7 +195,7 @@ form[role=login] > div {
   top: -13px;
 }
 
-/* line 74, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 75, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped > span[class^=w]:nth-of-type(n+0) {
   display: block;
   position: absolute;
@@ -205,7 +206,7 @@ form[role=login] > div {
   transform-origin: 50% 100%;
 }
 
-/* line 78, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 79, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped span {
   font-family: 'WillyWonka';
   font-size: 75px;
@@ -217,7 +218,7 @@ form[role=login] > div {
   padding: 0px;
 }
 
-/* line 81, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 82, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped .w0 {
   -moz-transform: rotate(-6.29rad);
   -webkit-transform: rotate(-6.29rad);
@@ -230,7 +231,7 @@ form[role=login] > div {
   top: 50px;
 }
 
-/* line 85, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 86, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped .w1 {
   -moz-transform: rotate(-6.28rad);
   -webkit-transform: rotate(-6.28rad);
@@ -243,7 +244,7 @@ form[role=login] > div {
   top: 50.17px;
 }
 
-/* line 89, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 90, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped .w2 {
   -moz-transform: rotate(-6.26rad);
   -webkit-transform: rotate(-6.26rad);
@@ -256,7 +257,7 @@ form[role=login] > div {
   top: 50.6px;
 }
 
-/* line 93, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 94, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped .w3 {
   -moz-transform: rotate(-6.23rad);
   -webkit-transform: rotate(-6.23rad);
@@ -269,7 +270,7 @@ form[role=login] > div {
   top: 51.74px;
 }
 
-/* line 97, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 98, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped .w4 {
   -moz-transform: rotate(-6.29rad);
   -webkit-transform: rotate(-6.29rad);
@@ -282,7 +283,7 @@ form[role=login] > div {
   top: 53.85px;
 }
 
-/* line 101, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 102, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped .w7 {
   -moz-transform: rotate(-6.4rad);
   -webkit-transform: rotate(-6.4rad);
@@ -295,7 +296,7 @@ form[role=login] > div {
   top: 49.44px;
 }
 
-/* line 105, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 106, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped .w8 {
   -moz-transform: rotate(-6.38rad);
   -webkit-transform: rotate(-6.38rad);
@@ -308,7 +309,7 @@ form[role=login] > div {
   top: 45.83px;
 }
 
-/* line 109, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 110, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped .w9 {
   -moz-transform: rotate(-6.32rad);
   -webkit-transform: rotate(-6.32rad);
@@ -321,7 +322,7 @@ form[role=login] > div {
   top: 43.47px;
 }
 
-/* line 113, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 114, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped .w10 {
   -moz-transform: rotate(-6.27rad);
   -webkit-transform: rotate(-6.27rad);
@@ -334,7 +335,7 @@ form[role=login] > div {
   top: 43.19px;
 }
 
-/* line 117, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 118, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped .w11 {
   -moz-transform: rotate(-6.22rad);
   -webkit-transform: rotate(-6.22rad);
@@ -347,14 +348,14 @@ form[role=login] > div {
   top: 45.1px;
 }
 
-/* line 121, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 122, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-2 {
   position: relative;
   margin-top: -61px;
   top: -10px;
 }
 
-/* line 123, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 124, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-2 > span[class^=w]:nth-of-type(n+0) {
   display: block;
   position: absolute;
@@ -365,7 +366,7 @@ form[role=login] > div {
   transform-origin: 50% 100%;
 }
 
-/* line 127, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 128, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-2 span {
   font-family: 'WillyWonka';
   font-size: 38px;
@@ -377,7 +378,7 @@ form[role=login] > div {
   padding: 0px;
 }
 
-/* line 132, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 133, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-2 .w7 {
   -moz-transform: rotate(-6.28rad);
   -webkit-transform: rotate(-6.28rad);
@@ -391,7 +392,7 @@ form[role=login] > div {
   font-size: 50px;
 }
 
-/* line 136, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 137, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-2 .w8 {
   -moz-transform: rotate(-6.27rad);
   -webkit-transform: rotate(-6.27rad);
@@ -404,7 +405,7 @@ form[role=login] > div {
   top: 159.25px;
 }
 
-/* line 140, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 141, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-2 .w9 {
   -moz-transform: rotate(-6.27rad);
   -webkit-transform: rotate(-6.27rad);
@@ -417,7 +418,7 @@ form[role=login] > div {
   top: 159.33px;
 }
 
-/* line 144, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 145, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-2 .w10 {
   -moz-transform: rotate(-6.26rad);
   -webkit-transform: rotate(-6.26rad);
@@ -430,7 +431,7 @@ form[role=login] > div {
   top: 159.57px;
 }
 
-/* line 148, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 149, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-2 .w11 {
   -moz-transform: rotate(-6.24rad);
   -webkit-transform: rotate(-6.24rad);
@@ -443,7 +444,7 @@ form[role=login] > div {
   top: 160.3px;
 }
 
-/* line 152, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 153, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-2 .w12 {
   -moz-transform: rotate(-6.21rad);
   -webkit-transform: rotate(-6.21rad);
@@ -456,7 +457,7 @@ form[role=login] > div {
   top: 161.57px;
 }
 
-/* line 161, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 162, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-3 {
   position: relative;
   display: inline-block;
@@ -464,7 +465,7 @@ form[role=login] > div {
   top: -13px;
 }
 
-/* line 163, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 164, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-3 > span[class^=w]:nth-of-type(n+0) {
   display: block;
   position: absolute;
@@ -475,7 +476,7 @@ form[role=login] > div {
   transform-origin: 50% 100%;
 }
 
-/* line 167, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 168, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-3 span {
   font-family: 'WillyWonka';
   font-size: 50px;
@@ -487,7 +488,7 @@ form[role=login] > div {
   padding: 0px;
 }
 
-/* line 171, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 172, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-3 .w18 {
   -moz-transform: rotate(-6.32rad);
   -webkit-transform: rotate(-6.32rad);
@@ -500,7 +501,7 @@ form[role=login] > div {
   top: 154.65px;
 }
 
-/* line 175, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 176, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-3 .w19 {
   -moz-transform: rotate(-6.37rad);
   -webkit-transform: rotate(-6.37rad);
@@ -513,7 +514,7 @@ form[role=login] > div {
   top: 153.11px;
 }
 
-/* line 179, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 180, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-3 .w20 {
   -moz-transform: rotate(-6.41rad);
   -webkit-transform: rotate(-6.41rad);
@@ -526,7 +527,7 @@ form[role=login] > div {
   top: 150.11px;
 }
 
-/* line 183, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 184, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-3 .w21 {
   -moz-transform: rotate(-6.41rad);
   -webkit-transform: rotate(-6.41rad);
@@ -539,7 +540,7 @@ form[role=login] > div {
   top: 147.05px;
 }
 
-/* line 187, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 188, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-3 .w22 {
   -moz-transform: rotate(-6.38rad);
   -webkit-transform: rotate(-6.38rad);
@@ -552,7 +553,7 @@ form[role=login] > div {
   top: 144.35px;
 }
 
-/* line 191, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 192, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-3 .w23 {
   -moz-transform: rotate(-6.34rad);
   -webkit-transform: rotate(-6.34rad);
@@ -565,7 +566,7 @@ form[role=login] > div {
   top: 142.69px;
 }
 
-/* line 195, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 196, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-3 .w24 {
   -moz-transform: rotate(-6.3rad);
   -webkit-transform: rotate(-6.3rad);
@@ -578,7 +579,7 @@ form[role=login] > div {
   top: 141.98px;
 }
 
-/* line 199, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 200, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-3 .w25 {
   -moz-transform: rotate(-6.25rad);
   -webkit-transform: rotate(-6.25rad);
@@ -591,7 +592,7 @@ form[role=login] > div {
   top: 142.34px;
 }
 
-/* line 203, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 204, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-3 .w26 {
   -moz-transform: rotate(-6.21rad);
   -webkit-transform: rotate(-6.21rad);
@@ -604,7 +605,7 @@ form[role=login] > div {
   top: 143.71px;
 }
 
-/* line 209, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 210, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-4 {
   position: relative;
   display: block;
@@ -614,7 +615,7 @@ form[role=login] > div {
   margin-left: -65px;
 }
 
-/* line 211, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 212, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-4 > span[class^=w]:nth-of-type(n+0) {
   display: block;
   position: absolute;
@@ -625,7 +626,7 @@ form[role=login] > div {
   transform-origin: 50% 100%;
 }
 
-/* line 215, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 216, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-4 span {
   font-family: 'WillyWonka';
   font-size: 52px;
@@ -637,7 +638,7 @@ form[role=login] > div {
   padding: 0px;
 }
 
-/* line 219, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 220, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-4 .w18 {
   -moz-transform: rotate(-6.32rad);
   -webkit-transform: rotate(-6.32rad);
@@ -650,7 +651,7 @@ form[role=login] > div {
   top: 153.65px;
 }
 
-/* line 223, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 224, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-4 .w19 {
   -moz-transform: rotate(-6.36rad);
   -webkit-transform: rotate(-6.36rad);
@@ -663,7 +664,7 @@ form[role=login] > div {
   top: 152.3px;
 }
 
-/* line 227, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 228, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-4 .w20 {
   -moz-transform: rotate(-6.41rad);
   -webkit-transform: rotate(-6.41rad);
@@ -676,7 +677,7 @@ form[role=login] > div {
   top: 149.76px;
 }
 
-/* line 231, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 232, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-4 .w21 {
   -moz-transform: rotate(-6.41rad);
   -webkit-transform: rotate(-6.41rad);
@@ -689,7 +690,7 @@ form[role=login] > div {
   top: 146.69px;
 }
 
-/* line 235, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 236, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-4 .w22 {
   -moz-transform: rotate(-6.39rad);
   -webkit-transform: rotate(-6.39rad);
@@ -702,7 +703,7 @@ form[role=login] > div {
   top: 143.78px;
 }
 
-/* line 239, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 240, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-4 .w23 {
   -moz-transform: rotate(-6.34rad);
   -webkit-transform: rotate(-6.34rad);
@@ -715,7 +716,7 @@ form[role=login] > div {
   top: 141.76px;
 }
 
-/* line 243, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 244, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 #warped-4 .w24 {
   -moz-transform: rotate(-6.29rad);
   -webkit-transform: rotate(-6.29rad);
@@ -728,11 +729,34 @@ form[role=login] > div {
   top: 140.96px;
 }
 
-/* line 247, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+/* line 249, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+#warped-2,
+#warped-3,
+#warped-4 {
+  color: rgba(245, 233, 0, 0.93);
+}
+
+/* line 256, ../../sass/FDC_style_guide/pages/_frontpage.scss */
 .back {
   position: fixed;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
+}
+
+/* line 264, ../../sass/FDC_style_guide/pages/_frontpage.scss */
+.back-s {
+  background-image: url(../images/espiral.png);
+  background-size: 100%;
+  -webkit-filter: blur(11px);
+  -moz-filter: blur(11px);
+  -o-filter: blur(11px);
+  -ms-filter: blur(11px);
+  filter: blur(11px);
+  background-position: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 100%;
+  position: fixed;
 }

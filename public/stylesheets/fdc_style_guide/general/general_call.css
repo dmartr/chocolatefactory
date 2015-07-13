@@ -3,8 +3,8 @@
 /****************************** layouts */
 /****************************** layouts */
 /* line 1, ../../../sass/FDC_style_guide/general/layouts/_footer.scss */
-footer {
-  height: 193px;
+#index footer {
+  height: 296px;
   background-image: url(../images/footer.png);
   position: relative;
 }
@@ -81,7 +81,7 @@ body {
   height: auto !important;
   height: 100%;
   /* Negative indent footer by its height */
-  margin: 0 auto -193px;
+  margin: 0px auto -296px;
   /* Pad bottom by footer height */
   padding: 0px;
 }

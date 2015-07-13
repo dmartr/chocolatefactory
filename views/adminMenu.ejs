@@ -17,21 +17,23 @@
 
 </head>
 
-  <body id="index">
+  <body id="adminMenu">
     <div id="wrap">
   <div class="container">
-   <div id='warped'>
+   <div id='wraped'>
    <center>
-  <h1> Hello Willy Wonka!</h1>
-  <h2> What you want to do?</h2>
+  <h1 class="admint"> Hello Willy Wonka!</h1>
+  <h2 class="admint"> What you want to do?</h2>
   </center>
   </div>
-    <a href="/admin-rooms"><button class="btn btn-lg btn-primary btn-block">Rooms Context Info</button></a>
+  <div align="center">
+    <a href="/admin-rooms"><button class="btn btn-lg btn-admin">Rooms Context Info</button></a>
     <br>
-    <a href="/admin-map"><button class="btn btn-lg btn-primary btn-block">Rooms map</button></a>
+    <a href="/admin-map"><button class="btn btn-lg btn-admin">Rooms map</button></a>
     <br>
     <br>
-    <a href="#" onclick="Fiware.signOut('account'); return false"><button class="btn btn-lg btn-primary btn-block">Log out</button></a>
+    <a href="#" onclick="Fiware.signOut('account'); return false"><button class="btn btn-lg btn-admin">Log out</button></a>
+    </div>
   </div>
   </div><!--/#wrap -->
   <footer class="footer">
