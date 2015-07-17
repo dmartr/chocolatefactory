@@ -223,6 +223,13 @@ app.get('/auth', function(req, res){
 
 app.get('/logout', function(req, res){
     req.session.access_token = undefined;  
+    if(subIds.length > 0){
+	        for(id in subIds){
+	           subscriptions.unsubscribeContext(subIds[id]);
+	           subIds.splice(id, 1);
+	           console.log("Id out");
+	         }
+	  }
     res.redirect('/');
 });
 

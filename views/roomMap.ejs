@@ -11,8 +11,8 @@
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
   </head>
   <body>
-    <div id="body">
-    </div>
+    <div id="body" class="roommap">
+    </div> 
     <script type="text/javascript">
       var socket = io();
       var ChData = {}; var EnData = {}; var InData = {}; var WiData = {}; var ElData = {}; var TvData = {};
@@ -149,7 +149,7 @@
     .style("opacity", function(d) { d.w = this.getComputedTextLength(); return d.dx > d.w ? 1 : 0; })
     .style("font-size", "30px")
     .style("font-weight", "800")
-    .style("fill", "#ff0000");
+    .style("fill", "#c3578d");
 
   cell.append("svg:g")
     .attr("class","graph")
@@ -267,7 +267,7 @@ var interval = setInterval(function(){
   //COLORES DE FONDO EN TIEMPO REAL
   //---------------------------------
   var t = svg.selectAll('g.cell');
-  var colores =["#ff4444"];
+  var colores =["#578dc3"]; 
 
   t.select("rect")
     .style("fill", function(d) {
