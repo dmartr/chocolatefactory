@@ -1,5 +1,5 @@
 #WillyWonka's Chocolate Factory
-##A FIWARE virtual implementation
+##FIWARE GE's implementation
 
 + [Introduction](#def-introduction)
 + [Functionalities overview](#def-overview)
