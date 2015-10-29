@@ -1,7 +1,12 @@
-*************************
-Identity Manager - Keyrock
-**************************
+#WillyWonka's Chocolate Factory
+##A FIWARE virtual implementation
 
++ [Introduction](#def-introduction)
++ [Functionalities overview](#def-overview)
++ [Requirements](#def-requirements)
++ [How to build and install](#install)
+
+<a name="def-introduction"></a>
 Introduction
 ============
 
@@ -17,8 +22,9 @@ The "Willy Wonka's Chocolate Factory" is a metaphoric implementation of a real I
 
 The mentioned Generic Enablers are not included in this repository and must be installed and configured by the user in order to make the WebApp work. 
 
+<a name="def-overview"></a>
 Functionalities overview
-======================
+=======================
 
 The Willy Wonka’s Chocolate Factory is a modular web application, which serves as a basic example of how to develop an app using FIWARE GEs. The main purpose of this app is to implement different FIWARE GEs into a horizontal and vertical scalable application. The application should set up a simple environment, easy to install, to help new FIWARE developers get started. 
 
@@ -30,11 +36,13 @@ The IdM GEi brings user life-cycle management, Single Sign-On (SSO) and security
 
 The Pep Proxy GE in this scenario acts a bit different compared to his normal use. Normally the PEP Proxy would be used to cover an internal REST API offered by the backend of the Web App, redirecting the allowed requests to the resource and blocking the not authorized requests. However, in this case, the Pep Proxy is acting as a mere token validator for the backend router when the frontend asks for a GET verb. The Pep Proxy asks the AuthZForce PDP for the authorization based on the role and permissions assigned to that role in the IdM Keystone database. 
 
+<a name="def-requirements"></a>
 Requirements
 ------------
 
 Node.js and npm must be installed in order to run the core application (represented in this repository). Additionally, you must check the particular requirements in the documentation of each component (Generic Enabler) that composes the application.  
 
+<a name="def-install"></a>
 How to Build & Install
 ======================
 
@@ -46,6 +54,7 @@ To build and Install each Generic Enabler you must follow the Installation and C
   - Wilma PEP Proxy: `Installation guide http://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/PEP_Proxy_-_Wilma_-_Installation_and_Administration_Guide`__
   - AuthZforce Authorization PDP: `Installation guide https://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/Authorization_PDP_-_AuthZForce_-_Installation_and_Administration_Guide_%28R4.2.0%29`__ 
 
+<a name="def-configuration"></a>
 Configuration 
 ==============
 
