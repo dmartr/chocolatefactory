@@ -2,12 +2,6 @@
 Identity Manager - Keyrock
 **************************
 
-.. contents::
-   :local:
-   :depth: 3
-
-.. _introduction:
-
 Introduction
 ============
 
@@ -23,8 +17,6 @@ The "Willy Wonka's Chocolate Factory" is a metaphoric implementation of a real I
 
 The mentioned Generic Enablers are not included in this repository and must be installed and configured by the user in order to make the WebApp work. 
 
-.. begin-overview
-
 Functionalities overview
 ======================
 
@@ -38,16 +30,10 @@ The IdM GEi brings user life-cycle management, Single Sign-On (SSO) and security
 
 The Pep Proxy GE in this scenario acts a bit different compared to his normal use. Normally the PEP Proxy would be used to cover an internal REST API offered by the backend of the Web App, redirecting the allowed requests to the resource and blocking the not authorized requests. However, in this case, the Pep Proxy is acting as a mere token validator for the backend router when the frontend asks for a GET verb. The Pep Proxy asks the AuthZForce PDP for the authorization based on the role and permissions assigned to that role in the IdM Keystone database. 
 
-.. begin-requirements
-
 Requirements
 ------------
 
 Node.js and npm must be installed in order to run the core application (represented in this repository). Additionally, you must check the particular requirements in the documentation of each component (Generic Enabler) that composes the application.  
-
-.. end-requirements
-
-.. _build:
 
 How to Build & Install
 ======================
@@ -59,8 +45,6 @@ To build and Install each Generic Enabler you must follow the Installation and C
   - Keyrock Identity Management: `Installation guide https://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/Identity_Management_-_KeyRock_-_Installation_and_Administration_Guide`__
   - Wilma PEP Proxy: `Installation guide http://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/PEP_Proxy_-_Wilma_-_Installation_and_Administration_Guide`__
   - AuthZforce Authorization PDP: `Installation guide https://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/Authorization_PDP_-_AuthZForce_-_Installation_and_Administration_Guide_%28R4.2.0%29`__ 
-  
-.. _configuration: 
 
 Configuration 
 ==============
