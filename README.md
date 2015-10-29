@@ -9,11 +9,11 @@
 Introduction
 ============
 
-This project is part of `FIWARE <http://fiware.org>`__. You will find
-more information about FIWARE `here <http://catalogue.fiware.org/>`__
+This project is part of [FIWARE](http://fiware.org). You will find
+more information about FIWARE [here](http://catalogue.fiware.org).
 
--  You will find the source code of the WebApp in GitHub `here <https://github.com/dmartr/chocolatefactory>`__
--  You will find the virtual image of the WebApp in Docker`here <https://hub.docker.com/r/dmartr/chocolatefactory/>`__
+-  You will find the source code of the WebApp in GitHub [here](https://github.com/dmartr/chocolatefactory).
+-  You will find the virtual image of the WebApp in Docker [here](https://hub.docker.com/r/dmartr/chocolatefactory).
 
 The "Willy Wonka's Chocolate Factory" is a metaphoric implementation of a real IoT and security industrial application. The core application is a web server powered by node.js that connects to various FIWARE components known as Generic Enablers. The implementation is composed by two main modules: the IoT module and the Security module. The Chocolate Factory is composed of four FIWARE Generic Enablers:
   - In the IoT module: Orion context Broker
@@ -48,10 +48,10 @@ How to Build & Install
 To install the WebApp you can clone this repository and install the npm modules ("sudo npm install") or run the Docker image in `here <https://hub.docker.com/r/dmartr/chocolatefactory/>`__  
 
 To build and Install each Generic Enabler you must follow the Installation and Configuration guide in the documentation of each GE: 
-  - Orion Context Broker: `Installation guide in CentOS https://fiware-orion.readthedocs.org/en/develop/admin/install/index.html` `Installation guide using a Docker image https://fiware-orion.readthedocs.org/en/develop/user/docker/index.html`__ 
-  - Keyrock Identity Management: `Installation guide https://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/Identity_Management_-_KeyRock_-_Installation_and_Administration_Guide`__
-  - Wilma PEP Proxy: `Installation guide http://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/PEP_Proxy_-_Wilma_-_Installation_and_Administration_Guide`__
-  - AuthZforce Authorization PDP: `Installation guide https://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/Authorization_PDP_-_AuthZForce_-_Installation_and_Administration_Guide_%28R4.2.0%29`__ 
+  - Orion Context Broker: [Installation guide in CentOS](https://fiware-orion.readthedocs.org/en/develop/admin/install/index.html) [Installation guide using a Docker image](https://fiware-orion.readthedocs.org/en/develop/user/docker/index.html). 
+  - Keyrock Identity Management: [Installation guide](https://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/Identity_Management_-_KeyRock_-_Installation_and_Administration_Guide)
+  - Wilma PEP Proxy: [Installation guide](http://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/PEP_Proxy_-_Wilma_-_Installation_and_Administration_Guide)
+  - AuthZforce Authorization PDP: [Installation guide](https://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/Authorization_PDP_-_AuthZForce_-_Installation_and_Administration_Guide_%28R4.2.0%29) 
 
 <a name="def-configuration"></a>
 Configuration 
@@ -63,4 +63,5 @@ The Node.js WebApp comunicated with the GEs using a REST API. Therefore the port
 
   - Keyrock Identity Management: To create the roles and permissions you must enter in the IdM portal (default localhost:8000). The administrator of the application (Willy Wonka) must register the Chocolate Factory as an application in the local instance of the IdM portal. Then the IdM provides the App two unique and permanent credentials: the OAuth Client ID and Client Secret.  This credentials must be included in the WebApp's config file.
  
+  -Wilma PEP Proxy & AuthZforce Authentication PDP: A new dominion must be created in the AuthZforce and this dominion must be specified in the WebApp and PEP Proxy configuration files. 
 
