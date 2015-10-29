@@ -1,5 +1,4 @@
 #WillyWonka's Chocolate Factory
-##FIWARE GE's implementation
 
 + [Introduction](#def-introduction)
 + [Functionalities overview](#def-overview)
