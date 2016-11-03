@@ -1,4 +1,4 @@
-#WillyWonka's Chocolate Factory
+# Security and IoT management example using FIWARE's GEs: WillyWonka's Chocolate Factory
 
 + [Introduction](#def-introduction)
 + [Functionalities overview](#def-overview)
